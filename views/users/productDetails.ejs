@@ -1,0 +1,270 @@
+﻿<%- include('userSubHeader') %>
+
+
+       <div class="popup" style="min-width: 300px; height: 70px; background-color: rgba(128, 128, 128, 0.459);
+        position: fixed; z-index: 1000; right: 0; display: none; justify-content: center; align-items: center; color: white; border-radius: 10px; margin: 10px;">
+                <span style=" font-size: 20px;">Product Added To Cart</span>
+       </div> 
+
+        <section class="mt-50 mb-50">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-9">
+                        <div class="product-detail accordion-detail">
+                            <div class="row mb-50">
+                                <div class="col-md-6 col-sm-12 col-xs-12">
+                                    <div class="detail-gallery">
+                                        <span class="zoom-icon"><i class="fi-rs-search"></i></span>
+                                        <!-- MAIN SLIDES -->
+                                        <div class="product-image-slider">
+
+                                            <% productdetails.images.forEach((items)=>{%>
+                                            
+                                                <figure class="border-radius-10">
+                                                    <img src="<%= items %>" alt="product image">
+                                                </figure>
+                                            
+                                           <% }) %>
+
+
+                                           
+                                        </div>
+                                        <!-- THUMBNAILS -->
+                                        <div class="slider-nav-thumbnails pl-15 pr-15">
+
+                                            <% productdetails.images.forEach((images)=>{ %>
+                                                <div><img src="<%= images %>" alt="product image"></div>
+
+                                            <% }) %>
+                                            <!-- <div><img src="/user/assets/imgs/shop/thumbnail-3.jpg" alt="product image"></div> -->
+                                           
+                                        </div>
+                                    </div>
+                                    <!-- End Gallery -->
+                                    <div class="social-icons single-share">
+                                        <ul class="text-grey-5 d-inline-block">
+                                            <li><strong class="mr-10">Share this:</strong></li>
+                                            <li class="social-facebook"><a href="#"><img src="/user/assets/imgs/theme/icons/icon-facebook.svg" alt=""></a></li>
+                                            <li class="social-instagram"><a href="https://www.instagram.com/6xobags/"><img src="/user/assets/imgs/theme/icons/icon-instagram.svg" alt=""></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+
+
+
+                                <div class="col-md-6 col-sm-12 col-xs-12">
+                                    <div class="detail-info">
+                                        <h2 class="title-detail"> <%= productdetails.name  %> </h2>
+                                        <div class="product-detail-rating">
+                                            <div class="pro-details-brand">
+                                                <span> Brands: <a href="shop-grid-right.html"> <%= productdetails.brand  %></a></span>
+                                                <br>
+                                                <span><a href="shop-grid-right.html" style="color: red; font-weight: 800; font-size: larger;"> <%= productdetails.offerPercentage  %></a> % OFF</span>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="clearfix product-price-cover">
+                                            <div class="product-price primary-color float-left">
+                                                <ins><span class="text-dark">₹<%= productdetails.price  %></span></ins>
+                                                <ins><span class="old-price font-md ml-15">₹ <%= productdetails.offerPrice  %></span></ins>
+                                                <p style="margin-top: 3px; color: green; font-size: 15px;">Free Delivery</span>
+
+                                            </div>
+                                        </div>
+                                        <div class="bt-1 border-color-1 mt-15 mb-15"></div>
+                                        <div class="short-desc mb-30">
+                                            <p><%= productdetails.description  %></p>
+                                        </div>
+                                        <div class="product_sort_info font-xs mb-30">
+                                            <ul>
+                                                <li class="mb-10"><i class="fi-rs-crown mr-5"></i> 2 Year Brand Warranty</li>
+                                                <!-- <li class="mb-10"><i class="fi-rs-refresh mr-5"></i> 30 Day Return Policy</li> -->
+                                                <!-- <li><i class="fi-rs-credit-card mr-5"></i> Cash on Delivery available</li> -->
+                                            </ul>
+                                            <p><span style="color: rgb(0, 138, 28);">Expected Delivery</span> : With in 4 Days</p>
+                                        </div>
+                                        
+                                        <div class="bt-1 border-color-1 mt-30 mb-30"></div>
+                                        <div class="detail-extralink">
+                                            <div class="product-extra-link2">
+                                                <% if (productdetails.quantity > 0) { %>
+                                                    <button type="submit" class="button button-add-to-cart bg-dark w-100" onclick="addToCart('<%= productdetails.id %>', event)">Add to cart</button>
+
+                                                <% } else { %>
+                                                    <button type="button" disabled class="btn btn-outline-danger button-add-to-cart">Out Of Stock</button>
+                                                <% } %>
+                                            </div>
+                                        </div>
+
+                                        <div class="similar-products mt-30">
+                                            <% if (similarProducts.length > 0) { %>
+                                                <h3 style="font-size: medium;">COLORS</h3>
+                                                <div class="row" style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+                                                    <% similarProducts.forEach(product => { %>
+                                                        <div class="col-6 col-sm-4 col-md-3" style="display: flex; justify-content: center; align-items: center;">
+                                                            <div class="product-card" 
+                                                                style="border: 1px solid #e0e0e0; 
+                                                                       border-radius: 8px; 
+                                                                       padding: 10px; 
+                                                                       width: 200px; 
+                                                                       height: 300px; 
+                                                                       display: flex; 
+                                                                       flex-direction: column; 
+                                                                       align-items: center; 
+                                                                       justify-content: space-between; 
+                                                                       text-align: center;
+                                                                       transition: box-shadow 0.3s ease;">
+                                                                <a href="/productdetails/<%= product._id %>">
+                                                                    <img src="<%= product.coverimage %>" 
+                                                                         alt="<%= product.name %>" 
+                                                                         style="width: 100%; 
+                                                                                max-width: 150px; 
+                                                                                height: 150px; 
+                                                                                object-fit: cover;" 
+                                                                         class="img-fluid" />
+                                                                </a>
+                                                                <h4 style="font-size: 1rem; margin-top: 10px;"><%= product.name %></h4>
+                                                            </div>
+                                                        </div>
+                                                    <% }) %>
+                                                </div>
+                                            <% } %>
+                                        </div>
+                                        <ul class="product-meta font-xs color-grey mt-50">
+                                            <li>Availability:<span class="in-stock text-success ml-5"><%= productdetails.quantity  %></span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="main" style="background-color: #000000;">
+        <section class="section-padding footer-mid">
+            <div class="container pt-15 pb-20">
+                <div class="row justify-content-center text-center text-md-start">
+                    <!-- About Section -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="widget-about font-md">
+                            <div class="logo logo-width-1">
+                                <h3><a href="/home" class="text-white">6XO<span style="color: #e44d26;"> BAGS</span></a></h3>
+                            </div>
+                            <h5 class="mt-20 mb-10 fw-600 text-white">Contact</h5>
+                            <p class="text-white">
+                                <strong class="text-success">Phone:</strong> <a href="tel:+919747333006" class="text-white">+91 9747333006</a>
+                            </p>
+                            <p class="text-white">
+                                <strong class="text-success">Mail:</strong> <a href="mailto:6xobags@gmail.com" class="text-white">6xobags@gmail.com</a>
+                            </p>
+                        </div>
+                    </div>
+                    <!-- About Links -->
+                    <div class="col-lg-2 col-md-3 col-sm-6 mb-4">
+                        <h5 class="widget-title text-white">About</h5>
+                        <ul class="footer-list list-unstyled">
+                            <li><a href="/contact-us" class="text-white">Contact Us</a></li>
+                         
+                            <li><a href="/terms&conditions" class="text-white">Terms and Conditions</a></li>
+                            <li><a href="/privacy&policy" class="text-white">Privacy Policy</a></li>
+                            <li><a href="/refundPolicy" class="text-white">Refund Policy</a></li>
+                        </ul>
+                    </div>
+                    <!-- Account Links -->
+                    <div class="col-lg-2 col-md-3 col-sm-6 mb-">
+                        <h5 class="widget-title text-white">My Account</h5>
+                        <ul class="footer-list list-unstyled">
+                            <li><a href="/login" class="text-white">Sign In</a></li>
+                            <li><a href="/cart" class="text-white">View Cart</a></li>
+                            <li><a href="/orders" class="text-white">Order</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </footer>
+    
+    <!-- Vendor JS-->
+    <script src="/user/assets/js/vendor/modernizr-3.6.0.min.js"></script>
+    <script src="/user/assets/js/vendor/jquery-3.6.0.min.js"></script>
+    <script src="/user/assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
+    <script src="/user/assets/js/vendor/bootstrap.bundle.min.js"></script>
+    <script src="/user/assets/js/plugins/slick.js"></script>
+    <script src="/user/assets/js/plugins/jquery.syotimer.min.js"></script>
+    <script src="/user/assets/js/plugins/wow.js"></script>
+    <script src="/user/assets/js/plugins/jquery-ui.js"></script>
+    <script src="/user/assets/js/plugins/perfect-scrollbar.js"></script>
+    <script src="/user/assets/js/plugins/magnific-popup.js"></script>
+    <script src="/user/assets/js/plugins/select2.min.js"></script>
+    <script src="/user/assets/js/plugins/waypoints.js"></script>
+    <script src="/user/assets/js/plugins/counterup.js"></script>
+    <script src="/user/assets/js/plugins/jquery.countdown.min.js"></script>
+    <script src="/user/assets/js/plugins/images-loaded.js"></script>
+    <script src="/user/assets/js/plugins/isotope.js"></script>
+    <script src="/user/assets/js/plugins/scrollup.js"></script>
+    <script src="/user/assets/js/plugins/jquery.vticker-min.js"></script>
+    <script src="/user/assets/js/plugins/jquery.theia.sticky.js"></script>
+    <script src="/user/assets/js/plugins/jquery.elevatezoom.js"></script>
+    <!-- Template  JS -->
+    <script src="/user/assets/js/main.js"></script>
+    <script src="/user/assets/js/shop.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    <script>
+        function addToCart(id, event) {
+          event.preventDefault();
+      
+          $.ajax({
+            url: `/addToCart?id=${id}`,
+            method: "get",
+            success: (response) => {
+              if (response.status) {
+                Swal.fire({
+                  title: 'ADD TO CART',
+                  text: 'Product Added to cart',
+                  icon: 'success',
+                  timer: 1000,
+                  showConfirmButton: false,
+                });
+              } else if (response.alreadyInCart) {
+                Swal.fire({
+                  title: 'Product Already in Cart',
+                  text: 'This product is already in your cart.',
+                  icon: 'info',
+                  confirmButtonText: 'View Cart',
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    window.location.href = '/cart';
+                  }
+                });
+              } else {
+                Swal.fire({
+                  title: 'Login Required',
+                  text: 'Please log in to add products to your cart.',
+                  icon: 'info',
+                  showCancelButton: true,
+                  confirmButtonText: 'Login',
+                  cancelButtonText: 'Cancel',
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    window.location.href = '/login';
+                  } else {
+                    console.log('User canceled login');
+                  }
+                });
+              }
+            },
+            error: (error) => {
+              console.error('Error:', error);
+              alert('An error occurred. Please try again');
+            }
+          });
+        }
+      </script>
+
+</body>
+
+</html>

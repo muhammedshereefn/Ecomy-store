@@ -1,0 +1,178 @@
+<%- include('adminHeader') %>
+<section class="content-main">
+    <div class="content-header">
+        <h2 class="content-title card-title">Order Details</h2>
+    </div>
+    <div class="card">
+        <header class="card-header">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <!-- Add any summary information here if needed -->
+                </div>
+              
+            </div>
+        </header>
+        <div class="card-body">
+            <!-- Order Info Section -->
+            <div class="row mb-4 order-info-wrap">
+                <div class="col-md-4">
+                    <article class="icontext align-items-start">
+                        <span class="icon icon-sm rounded-circle bg-primary-light">
+                            <i class="text-primary material-icons md-person"></i>
+                        </span>
+                        <div class="text">
+                            <h6 class="mb-2">Customer Information</h6>
+                            <p>
+                                <strong>Name:</strong> <%= order.user.name %><br>
+                                <strong>Email:</strong> <%= order.user.email %><br>
+                                <strong>Mobile:</strong> <%= order.user.mobile %>
+                            </p>
+                        </div>
+                    </article>
+                </div>
+                <div class="col-md-4">
+                    <article class="icontext align-items-start">
+                        <span class="icon icon-sm rounded-circle bg-primary-light">
+                            <i class="text-primary material-icons md-local_shipping"></i>
+                        </span>
+                        <div class="text">
+                            <h6 class="mb-2">Order Information</h6>
+                            <p>
+                                <strong>Date:</strong> <%= order.createdAt.toDateString() %><br>
+                                <strong>Payment Method:</strong> <%= order.paymentMethod %><br>
+                                <strong>Order Status:</strong> <%= order.status %><br>
+                               
+                            </p>
+                        </div>
+                    </article>
+                </div>
+                <div class="col-md-4">
+                    <article class="icontext align-items-start">
+                        <span class="icon icon-sm rounded-circle bg-primary-light">
+                            <i class="text-primary material-icons md-place"></i>
+                        </span>
+                        <div class="text">
+                            <h6 class="mb-2">Delivery Address</h6>
+                            <p>
+                                <%= order.address[0].houseNo %>, <%= order.address[0].street %><br>
+                                <%= order.address[0].landmark ? `${order.address[0].landmark},` : '' %> <%= order.address[0].city %><br>
+                                <%= order.address[0].district %>, <%= order.address[0].state %>, <%= order.address[0].country %><br>
+                                <strong>Pincode:</strong> <%= order.address[0].pincode %>
+                            </p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+            <!-- Product Details Section -->
+            <div class="table-responsive">
+                <table class="table align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Product</th>
+                            <th>Brand</th>
+                            <th>Quantity</th>
+                            <% if (order.products.length !== 1) { %>
+                                <th>Status</th>
+                                <th>Refund</th>
+                                <th>Action</th>
+                            <% } %>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% order.products.forEach(orderItem => { %>
+                            <tr>
+                                <td>
+                                    <a class="itemside" href="#">
+                                        <div class="left">
+                                            <img src="<%= orderItem.product.coverimage %>" width="40" height="40" class="img-xs" alt="<%= orderItem.product.name %>">
+                                        </div>
+                                        <div class="info"><%= orderItem.product.name %></div>
+                                    </a>
+                                </td>
+                                <td><%= orderItem.product.brand %></td>
+                                <td><%= orderItem.quantity %></td>
+                                <% if (order.products.length !== 1) { %>
+                                    <td>
+                                        <span class="<%= orderItem.status === 'Cancelled' ? 'text-danger' : 'text-success' %>">
+                                            <%= orderItem.status || 'Pending' %>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <% if (orderItem.status === 'Cancelled') { %>
+                                            ₹<%= orderItem.refundAmount || 0 %> - <%= orderItem.refundStatus %>
+                                        <% } else { %>
+                                            N/A
+                                        <% } %>
+                                    </td>
+                                    <td>
+                                        <% if (orderItem.status === 'Cancelled' && orderItem.refundStatus === 'notPaid') { %>
+                                            <button 
+                                            class="btn btn-primary btn-sm refund-btn" 
+                                            data-order-id="<%= order._id %>" 
+                                            data-product-id="<%= orderItem.product._id %>">
+                                            Refund Done
+                                        </button>
+                                        <% }  else if (orderItem.refundStatus === 'paid') { %>
+                                            <button class="btn btn-secondary btn-sm" disabled>
+                                                Paid ✅
+                                            </button>
+                                        <% } else { %>
+                                            <span>N/A</span>
+                                        <% } %>
+                                    </td>
+                                <% } %>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Order Summary -->
+            <div class="mt-4 text-end">
+                <h5>Grand Total: ₹<%= order.grandTotal %>.00</h5>
+                <% if (order.grandTotal === 0) { %>
+                    <div class="alert alert-warning mt-3">All items have been canceled.</div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+
+    // Add event listeners to all refund buttons
+    document.addEventListener("DOMContentLoaded", function () {
+        const refundButtons = document.querySelectorAll(".refund-btn");
+        refundButtons.forEach(button => {
+            button.addEventListener("click", async function () {
+                const orderId = this.dataset.orderId;
+                const productId = this.dataset.productId;
+
+              
+
+                try {
+                    const response = await fetch("/admin/changeRefundStatus", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ orderId, productId })
+                    });
+
+                    const result = await response.json();
+                    if (response.ok) {
+                        alert("Refund status updated successfully!");
+                        location.reload(); // Reload the page to reflect changes
+                    } else {
+                        alert("Failed to update refund status: " + result.message);
+                    }
+                } catch (error) {
+                    console.error("Error:", error);
+                    alert("An error occurred. Please try again.");
+                }
+            });
+        });
+    });
+
+</script>
+
+<%- include('adminFooter') %>

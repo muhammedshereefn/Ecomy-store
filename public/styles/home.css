@@ -1,0 +1,520 @@
+/* Header Design */
+
+.amatic-sc-regular {
+  font-family: "Amatic SC", serif;
+  font-weight: 400;
+}
+.amatic-sc-bold {
+  font-family: "Amatic SC", serif;
+  font-weight: 700;
+}
+.gruppo-regular {
+  font-family: "Gruppo", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+  /* General styles for the navbar header */
+  .navbar-header {
+    background-color: #ffffff; /* Dark blue background */
+    height: 69px;
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Logo styling */
+  .navbar-brand .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+  }
+  
+  .navbar-brand .text-success {
+    color: #00ff00; /* Green for the logo's Mart */
+  }
+  
+  /* General styles for the search bar */
+  .search-bar {
+    flex: 1;
+    max-width: 600px;
+    display: flex;
+    position: relative; /* Relative positioning for the input container */
+  }
+  
+  .search-bar input {
+    width: 100%;
+    height: 46px;
+    padding-left: 40px; /* Add space for the icon */
+    border-radius: 7px;
+   
+  }
+  
+  .search-bar button {
+    display: none; /* Hide the original search button */
+  }
+  
+  .search-bar i {
+    position: absolute;
+    left: 10px; /* Position the icon inside the input */
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    color: #080808;
+    pointer-events: none; /* Prevent interaction with the icon */
+  }
+  
+  /* Icon styling */
+  .nav-icons {
+    gap: 20px;
+    font-size: 1.2rem;
+  }
+  
+  .nav-icons i,
+  .nav-icons a {
+    color: rgb(0, 0, 0);
+  }
+  
+  .nav-icons i:hover,
+  .nav-icons a:hover {
+    color: #00ff00;
+  }
+  
+  /* Responsive adjustments */
+  /* Responsive adjustments for mobile view */
+  @media (max-width: 768px) {
+  
+    .navbar-header {
+      height: 124px; /* Set height to 124px for mobile view */
+    }
+  
+  
+    .navbar-header .container {
+      flex-direction: column; /* Stack items vertically */
+      align-items: flex-start; /* Align items to the start */
+    }
+  
+    .navbar-brand {
+      width: 100%; /* Full width for alignment */
+      display: flex;
+      justify-content: space-between; /* Space between logo and icons */
+      align-items: center;
+      margin-bottom: 10px; /* Add spacing */
+    }
+  
+    .search-bar {
+      width: 100%; /* Full width for search bar */
+      margin-bottom: 10px; /* Add spacing below search bar */
+    }
+  
+    .nav-icons {
+      position: absolute;
+      right: 10px; /* Align to the right corner */
+      top: 15px; /* Adjust positioning */
+    }
+  }
+
+
+
+
+  .nav-category {
+    background-color: #f6f6f6;
+    width: 100%;
+    height: 60px;
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Space out left and right sections */
+    align-items: center; /* Center the content vertically */
+}
+
+/* Styling the left section */
+.left-section {
+  height: 100%;
+  display: flex; /* Flex layout for the links */
+  justify-content: flex-start; /* Align links to the left */
+  align-items: center; /* Vertically center the links */
+  padding-left: 20px; /* Add some padding to the left for spacing */
+}
+
+/* Styling the links container */
+.links {
+  display: flex;
+  gap: 20px; /* Space between the links */
+}
+
+/* Styling individual link items */
+.link-item {
+  color: #000000;
+  text-decoration: none;
+  font-size: 16px;
+  padding: 5px;
+  position: relative; /* Necessary for the ::after pseudo-element */
+  transition: color 0.3s ease;
+}
+
+/* Smooth underline effect */
+.link-item::after {
+  content: ''; /* Pseudo-element for the underline */
+  position: absolute;
+  bottom: 0; /* Position at the bottom of the link */
+  left: 0; /* Start at the left of the link */
+  width: 0; /* Initial width of the underline */
+  height: 2px; /* Thickness of the underline */
+  background-color: #848484; /* Color of the underline */
+  transition: width 0.3s ease; /* Smooth width animation */
+}
+
+/* Hover effect for the link */
+.link-item:hover {
+  color: #616161; /* Change text color on hover */
+}
+
+/* Hover effect for the underline */
+.link-item:hover::after {
+  width: 100%; /* Expand underline to the full width of the link */
+}
+
+.right-section {
+  height: 100%;
+  display: flex;
+  justify-content: flex-end; /* Align to the right */
+  align-items: center; /* Vertically center the dropdown */
+  padding-right: 20px; /* Padding for spacing */
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-btn {
+  background-color: #f1f1f1;
+  color: #000;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown-btn:hover {
+  background-color: #ccc; /* Hover effect for the button */
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  z-index: 1;
+  border-radius: 4px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-content a {
+  color: #000;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  font-size: 14px;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd; /* Hover effect for dropdown items */
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Make it responsive */
+@media (max-width: 768px) {
+  .nav-category {
+      flex-direction: column; /* Stack items vertically on small screens */
+      height: auto; /* Allow height to adjust for stacked content */
+  }
+
+  .left-section, .right-section {
+    display: none;
+  }
+
+  .links {
+      flex-direction: column; /* Stack links vertically on smaller screens */
+      gap: 10px; /* Reduce the space between links */
+  }
+
+  .dropdown {
+      display: flex;
+      justify-content: center; /* Center the dropdown on smaller screens */
+  }
+
+  .dropdown-btn {
+      font-size: 14px;
+      padding: 6px 12px;
+  }
+
+  .dropdown-content {
+      min-width: 120px; /* Smaller dropdown width on mobile */
+  }
+}
+
+
+ /* Styling for the side menu */
+ #mobile-menu {
+  position: fixed;
+  top: 0;
+  right: -50%; /* Initially hidden */
+  width: 50%;
+  height: 100%;
+  z-index: 9999; 
+  background-color: rgb(255, 255, 255); /* Background color */
+  transition: right 0.3s ease-in-out; /* Slide effect */
+  padding: 20px;
+  color: rgb(0, 0, 0);
+}
+
+#mobile-menu a {
+  display: block;
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  margin: 15px 0;
+  font-size: 18px;
+}
+
+/* Add hover effect to links */
+#mobile-menu a:hover {
+  color: #f1f1f1;
+}
+
+/* To show the menu */
+#mobile-menu.open {
+  right: 0;
+}
+
+ /* Close button (X) */
+ .close-btn {
+  position: absolute;
+  top: 0px;
+  right: 20px;
+  font-size: 30px;
+  color: rgb(71, 0, 0);
+  cursor: pointer;
+}
+
+/* Styling the overlay effect when the menu is open */
+body.menu-open {
+  overflow: hidden; /* Prevent scrolling when menu is open */
+}
+
+
+
+
+
+
+
+
+/* MAIN HOME SCREEN CAROUSEL */
+.category-item {
+  width: 100px;
+  max-width: 150px;
+  flex: 1 1 auto;
+}
+
+.category-item .rounded-circle {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 2px solid #c8c8c8ab;
+  transition: border-color 0.3s ease;
+}
+
+.category-item .rounded-circle:hover {
+  border-color: rgb(125, 171, 157); /* Change border color to black on hover */
+}
+
+.category-item img {
+width: 100%; /* Ensures the image fills the circle */
+height: 100%; /* Ensures the image fills the circle */
+object-fit: cover; /* Maintains the aspect ratio while filling the circle */
+}
+
+@media (max-width: 768px) {
+  .category-item {
+    margin-bottom: 20px;
+  }
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(1);
+}
+
+.carousel-item {
+  transition: transform 0.5s ease-in-out;
+}
+
+
+
+
+
+
+/*Best seller section  */
+.product-card {
+  width: 207px; /* Set the width of the card */
+  height: 260px; /* Set the height of the card */
+  border-radius: 1px;
+  padding: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Ensures spacing between image, name, and price */
+}
+
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.underline-hover {
+  position: relative; /* To position the underline */
+  display: inline-block; /* For proper alignment of the underline */
+}
+
+.underline-hover::after {
+  content: ""; /* Add an empty content for the underline */
+  position: absolute;
+  left: 0;
+  bottom: -5px; /* Adjust the distance below the text */
+  width: 0; /* Start with no width */
+  height: 2px; /* Thickness of the underline */
+  background-color: rgb(175, 175, 175); /* Color of the underline */
+  transition: width 0.3s ease; /* Smooth transition effect */
+}
+
+.underline-hover:hover::after {
+  width: 100%; /* Full width underline on hover */
+}
+
+
+@media (max-width: 768px) {
+  .product-card {
+    width: 207px;
+    height: 260px;
+  }
+}
+
+
+/* Product Card */
+.product-card {
+  width: 207px;
+  height: 260px;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Product Image */
+.product-image {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Title Underline Hover */
+.underline-hover {
+  position: relative;
+  display: inline-block;
+}
+
+.underline-hover::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 0;
+  height: 2px;
+  background-color: rgb(175, 175, 175);
+  transition: width 0.3s ease;
+}
+
+.underline-hover:hover::after {
+  width: 100%;
+}
+
+/* Responsive Card Adjustments */
+@media (max-width: 768px) {
+  .product-card {
+    width: 100%;
+    height: auto;
+  }
+}
+
+
+
+/* Offer Price Styling */
+.price-container {
+  display: flex;
+  align-items: center; /* Align items on the same line */
+  gap: 8px; /* Add space between offer price and old price */
+}
+
+.offer-price {
+  font-size: 18px; /* Slightly larger size for offer price */
+  font-weight: bold;
+  color: #28a745; /* Green for emphasis */
+}
+
+.old-price {
+  font-size: 14px; /* Smaller size for the original price */
+  color: #888; /* Gray for a less prominent look */
+  text-decoration: line-through; /* Strike-through for original price */
+}
+
+/* Remark Styling */
+.remark {
+  font-size: 14px;
+  margin-top: 4px; /* Space between the price and remark */
+}
+
+
+
+
+/* Add to Cart Button Styling */
+.add-to-cart-btn {
+  margin-top: 10px;
+  background-color: #000000; /* Primary blue color */
+  color: #fff; /* White text */
+  border: none; /* No border */
+  border-radius: 5px; /* Rounded corners */
+  padding: 5px 10px; /* Padding for a comfortable size */
+  font-size: 14px; /* Button text size */
+  font-weight: bold;
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: all 0.3s ease; /* Smooth transition effect */
+}
+
+.add-to-cart-btn:hover {
+  background-color: #6f6f6f; /* Darker blue on hover */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow on hover */
+  transform: translateY(-2px); /* Slight lift on hover */
+}
+
+
+/* Wishlist Icon Styling */
+.wishlist-icon {
+  margin-left: 10px; /* Add some space between button and heart icon */
+  display: inline-block;
+  vertical-align: middle;
+  color: #8d8d8d;
+}
+
+
