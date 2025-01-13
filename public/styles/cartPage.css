@@ -1,0 +1,108 @@
+ /* General table styles */
+ .shopping-summery {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .shopping-summery thead {
+    display: none; /* Hide table header on small screens */
+  }
+
+  .shopping-summery tbody tr {
+    display: block;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .shopping-summery tbody tr td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+  }
+
+  .shopping-summery tbody tr td img {
+    max-width: 50px;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .shopping-summery tbody tr td span,
+  .shopping-summery tbody tr td button {
+    font-size: 12px;
+  }
+
+  /* Add titles for data on small screens */
+  .shopping-summery tbody tr td[data-title]:before {
+    content: attr(data-title);
+    font-weight: bold;
+    margin-right: 10px;
+    color: #333;
+  }
+
+  /* Responsive design */
+  @media (min-width: 768px) {
+    .shopping-summery thead {
+      display: table-header-group;
+    }
+    .shopping-summery tbody tr {
+      display: table-row;
+      box-shadow: none;
+      border: none;
+    }
+    .shopping-summery tbody tr td {
+      display: table-cell;
+      padding: 10px;
+    }
+    .shopping-summery tbody tr td[data-title]:before {
+      content: none;
+    }
+    .shopping-summery tbody tr td img {
+      max-width: 100px;
+    }
+    .shopping-summery tbody tr td span,
+    .shopping-summery tbody tr td button {
+      font-size: 14px;
+    }
+  }
+
+
+
+  /* Add smooth underline on hover for table headers */
+  th {
+    position: relative;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer; /* Optional: Indicates that it's interactive */
+  }
+
+  th::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -3px; /* Position the underline slightly below the text */
+    width: 0;
+    height: 2px;
+    background-color: #000; /* Adjust color as needed */
+    transition: width 0.3s ease-in-out;
+  }
+
+  th:hover::after {
+    width: 100%; /* Full underline width on hover */
+  }
+
+  /* Ensure this only applies to large screens */
+  @media (max-width: 768px) {
+    th {
+      font-size: 14px; /* Adjust font size for smaller screens */
+      cursor: default;
+    }
+
+    th::after {
+      display: none; /* Hide underline effect on smaller screens */
+    }
+  }

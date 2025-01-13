@@ -4,12 +4,17 @@
             <div class="container">
                 <div class="row">
                   <div class="mb-25">
-                    <h4>Billing Details</h4>
+                    <h4 class="gruppo-regular" style="font-size: 24px; font-weight: bold;">BILLING DETAILS</h4>
                 </div>     
-                  <div class="mt-3">
+                <div class="mt-3">
                     <!-- Add Address Button -->
-                    <a href="/checkoutAddaddress"><button class="btn btn-small btn-primary bg-dark" id="addAddressBtn">Add Address</button></a> 
+                    <a href="/checkoutAddaddress">
+                        <button class="btn btn-small bg-light text-dark rounded-full p-3 flex justify-center items-center">
+                            <span class="text-2xl gruppo-regular"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 -2 24 24" width="19" fill="currentColor"><path d="M3 2a1 1 0 0 0-1 1v15l2.978-2.717a3 3 0 0 1 4.044 0L12 18V3a1 1 0 0 0-1-1H3zm0-2h8a3 3 0 0 1 3 3v15a2 2 0 0 1-3.348 1.477L7.674 16.76a1 1 0 0 0-1.348 0l-2.978 2.717A2 2 0 0 1 0 18V3a3 3 0 0 1 3-3zm5 8h2a1 1 0 0 1 0 2H8v2a1 1 0 0 1-2 0v-2H4a1 1 0 1 1 0-2h2V6a1 1 0 1 1 2 0v2z"></path></svg> Add Address</span>
+                        </button>
+                    </a> 
                 </div>
+                
                     <div class="row">
                         <div class="col-md-6" id="view_card">
                             <div class="row">
@@ -17,11 +22,11 @@
                                 <% for (let i = 0; i < address.length; i++) { %>
                                     <div class="col-12 mt-4">
                                         <input class="form-check-input" type="radio" required="" style="width: 1rem; height: 1rem;" value="<%= address[i]._id %>" name="selectedAddressId" id="checkoutShippingMethod" checked>
-                                        <div class="card mt-4">
-                                            <div class="card-header bg-dark">
-                                                <h5 class="mb-0 text-white">Address</h5>
+                                        <div class="card mt-0">
+                                            <div class="card-header" style="background-color: #ffffff;">
+                                                <h5 class="mb-0 text-dark gruppo-regular" style="font-size: 16px; font-weight: bold;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 -1.5 24 24" width="16" fill="currentColor"><path d="M7 20.565c-4.667-6.09-7-10.423-7-13a7 7 0 1 1 14 0c0 2.577-2.333 6.91-7 13zm0-9a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"></path></svg> Delivery address</h5>
                                             </div>
-                                            <div class="card-body bg-light">
+                                            <div class="card-body bg-light " >
                                                 <address>
                                                     <%= address[i].addressType %> <%= address[i].houseNo %> <%= address[i].street %><br />
                                                     <%= address[i].landmark ? address[i].landmark : '' %>
@@ -31,7 +36,7 @@
                                                 <p><%= address[i].district %></p>
                                                 <div class="row">
                                                     <div class="col-12 d-flex justify-content-between">
-                                                        <a href="/checkoutEditAddress/<%= address[i]._id %>" class="btn btn-small btn-warning bg-primary">Edit</a>
+                                                        <a href="/checkoutEditAddress/<%= address[i]._id %>" class="btn btn-small btn-warning bg-light gruppo-regular text-dark">Edit Address</a>
                                                        
                                                         <!-- Add a form for the delete button -->
                                                     </div>
@@ -44,14 +49,14 @@
                         </div>
                 
                         <div class="col-md-6">
-                            <div class="order_review">
+                            <div class="order_review" style="margin-top: 40px;">
                                 <div class="mb-20">
-                                    <h4>Your Orders</h4>
+                                    <h4 class="gruppo-regular" style="font-size: 24px; font-weight: bold;">YOUR ORDER</h4>
                                 </div>
                                 <div class="table-responsive order_table text-center">
                                     <table class="table">
-                                        <thead class="bg-dark text-white">
-                                            <tr>
+                                        <thead class="bg-white  text-white">
+                                            <tr class="gruppo-regular text-dark" style="font-weight: bold; font-size: 17px;">
                                                 <th colspan="2">Product</th>
                                                 <th>Product Price</th>
                                                 <th>Total</th>
@@ -59,7 +64,7 @@
                                         </thead>
                                         <tbody class="bg-light">
                                             <% cart.items.forEach(product => { %>
-                                                <tr>
+                                                <tr class="gruppo-regular" style="font-weight: bolder; font-size: 19px;">
                                                     <td class="image product-thumbnail">
                                                         <img src="<%= product.product.coverimage %>" alt="<%= product.product.name %>">
                                                     </td>
@@ -72,7 +77,7 @@
                                                 </tr>
                                             <% }); %>
                                         
-                                            <tr>
+                                            <tr class="gruppo-regular" style="font-weight: bolder;">
                                                 <th>SubTotal</th>
                                                 <% 
                                                     total = 0; 
@@ -84,7 +89,7 @@
                                             </tr>
                                         
                                             <!-- Highlight Free Delivery -->
-                                            <tr>
+                                            <tr class="gruppo-regular" style="font-weight: bolder;">
                                                 <th>Shipping</th>
                                                 <td colspan="2">
                                                     <em style="color: green; font-weight: bold;">Delivery is Free within Kerala</em><br>
@@ -93,12 +98,12 @@
                                                 
                                             </tr>
                                         
-                                            <tr>
+                                            <tr class="gruppo-regular" style="font-weight: bolder; ">
                                                 <th>Total</th>
                                                 <% 
                                                     let finalTotal = total; // No delivery charge
                                                 %>
-                                                <td colspan="2" class="product-subtotal">
+                                                <td colspan="2" class="product-subtotal" >
                                                     <span id="price" class="font-xl text-brand fw-900">₹<%= finalTotal %></span>
                                                     <input type="hidden" id="orderTotalInput" value="<%= finalTotal %>" readonly>
                                                 </td>
@@ -114,12 +119,12 @@
                                 <div class="bt-1 border-color-1 mt-30 mb-30"></div>
                                 <div class="payment_method">
                                     <div class="mb-25">
-                                        <h5>Payment</h5>
+                                        <h5 class="gruppo-regular" style="font-size: 22px; ">PAYMENT OPTION</h5>
                                     </div>
                                     <div class="payment_option">
                                       <div class="custome-radio">
                                           <input class="form-check-input" required="" type="radio" name="payment_option" id="razorpayRadio" value="razorpay" checked="">
-                                          <label class="form-check-label" for="razorpayRadio" data-bs-toggle="collapse" data-target="#razorpay" aria-controls="razorpay">RAZORPAY / UPI</label>
+                                          <label class="gruppo-regular form-check-label" for="razorpayRadio" data-bs-toggle="collapse" data-target="#razorpay" aria-controls="razorpay" style="font-size: 17px;">RAZORPAY / UPI</label>
                                           <div class="form-group collapse in" id="razorpay">
                                               <p class="text-muted mt-5">Pay via Razorpay; you can pay with your credit card.</p>
                                           </div>
@@ -138,7 +143,7 @@
                                     <!-- Add more fields if needed -->
                                 <% }); %>
                                 <input type="hidden" name="discountedTotal" id="discountedTotalInput" value="<%= total %>">
-                                <button type="button" id="placeOrderButton" class="btn btn-fill-out btn-block mt-30 bg-dark">PAY NOW</button>
+                                <button type="button" id="placeOrderButton" class="gruppo-regular btn btn-fill-out btn-block mt-30 bg-dark" style="font-size: 18px;">PAY NOW </button>
                             </div>
                         </div>
                     </div>
