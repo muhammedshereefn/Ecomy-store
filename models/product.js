@@ -32,7 +32,7 @@ const productModel = new mongoose.Schema(
     },
     status: {
       type: Boolean,
-      default: true,
+      default: true,  
     },
     description: {
       type: String,

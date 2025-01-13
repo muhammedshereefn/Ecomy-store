@@ -138,3 +138,52 @@ swipers.forEach((swiper) => {
     },
   });
 });
+
+
+
+
+
+//search:
+$(document).ready(function () {
+  $("#search_box").on("input", function () {
+      var value = $("#search_box").val().toLowerCase();
+      var resultsContainer = $("#resultsContainer");
+      resultsContainer.empty();
+ 
+      $.get('/searchProduct', { q: value }, (data) => {
+          data.forEach(element => {
+              console.log(element);
+              var resultDiv = $("<div>").css({
+                  'width':'33rem',
+                  'color': 'black',
+                  'background-color': 'white',
+                  'padding': '7px',
+                  'border': '1px solid black',
+                  'text-align': 'center',
+                  'cursor': 'pointer'
+              }).text(element.name);
+ 
+              resultDiv.hover(
+                  function () {
+                      $(this).css({
+                          'background-color': 'black',
+                          'color': 'white'
+                      });
+                  },
+                  function () {
+                      $(this).css({
+                          'background-color': 'white',
+                          'color': 'black'
+                      });
+                  }
+              );
+ 
+              resultDiv.click(function () {
+                 
+                  window.location.href = '/productdetails/' + element._id;
+              });
+              resultsContainer.append(resultDiv);
+          });
+      });
+  });
+ });

@@ -28,8 +28,10 @@
            viewBox="-2.5 -2.5 24 24" width="23"
             fill="currentColor">
             <path d="M8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12zm6.32-1.094l3.58 3.58a1 1 0 1 1-1.415 1.413l-3.58-3.58a8 8 0 1 1 1.414-1.414z"></path></svg></i> 
-        <input type="text" class="form-control gruppo-regular" placeholder="What are you looking for?">
+        <input type="search" class="form-control gruppo-regular" placeholder="What are you looking for?" id="search_box" aria-label="Search" aria-describedby="search-addon">
+        <div id="resultsContainer" ></div>
       </div>
+      
       <div class="nav-icons d-flex align-items-center">
         <a href="/cart" class="gruppo-regular text-black mx-1" style="text-decoration: none;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-3 -4 24 24" width="25" fill="currentColor"><path d="M7 16a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zM.962 1.923A.962.962 0 0 1 .962 0h1.151c.902 0 1.682.626 1.878 1.506l1.253 5.642c.196.88.976 1.506 1.878 1.506h7.512l1.442-5.77H6.731a.962.962 0 0 1 0-1.922h9.345a1.923 1.923 0 0 1 1.866 2.39L16.5 9.12a1.923 1.923 0 0 1-1.866 1.457H7.122a3.846 3.846 0 0 1-3.755-3.012L2.113 1.923H.962z"></path></svg><span class="d-none d-md-inline">Cart</span></a>
         
@@ -51,6 +53,8 @@
       </div>
     </div>
   </header>
+
+
 
 
   <!-- Mobile Menu Bar (hidden initially) -->
@@ -114,6 +118,8 @@
       document.body.classList.toggle('menu-open');
     });
   </script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>̉̉̉̉̉̉̉

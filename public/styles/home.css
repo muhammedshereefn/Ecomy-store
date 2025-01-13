@@ -518,3 +518,46 @@ object-fit: cover; /* Maintains the aspect ratio while filling the circle */
 }
 
 
+
+
+
+
+
+/* //Search */
+
+.search-bar {
+  position: relative;
+}
+
+#resultsContainer {
+  position: absolute;
+  top: 100%; /* Directly below the input box */
+  left: 0;
+  width: 100%; /* Full width of the parent container */
+  max-height: 200px; /* Add a maximum height with scrolling */
+  overflow-y: auto;
+  z-index: 999;
+} 
+
+#resultsContainer div {
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  color: black;
+  border-bottom: 1px solid #ddd;
+}
+
+#resultsContainer div:last-child {
+  border-bottom: none;
+}
+
+#resultsContainer div:hover {
+  background-color: black;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  #resultsContainer {
+    width: 100%; /* Ensure it doesn't overflow on small screens */
+  }
+}
