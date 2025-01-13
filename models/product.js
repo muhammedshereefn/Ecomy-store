@@ -26,7 +26,7 @@ const productModel = new mongoose.Schema(
     brand: {
       type: String,
     },  
-    isFeature: {
+    bestseller: {
       type: Boolean,
       default: false,
     },

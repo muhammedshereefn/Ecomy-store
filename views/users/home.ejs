@@ -135,10 +135,12 @@
       <div class="swiper">
         <div class="swiper-wrapper">
           <!-- Product Card 1 -->
-          <% products.forEach(product => { %>
-          <div class="swiper-slide product-card text-center">
-            <img src="<%= product.coverimage %>" alt="Product 1" class="product-image">
-          </div>
+          <% products.filter(product => product.bestseller === true).forEach(product => { %>
+            <div class="swiper-slide product-card text-center">
+              <a href="/productdetails/<%= product._id %>" class="d-block">
+              <img src="<%= product.coverimage %>" alt="<%= product.name %>" class="product-image">
+            </a>
+            </div>
           <% }) %>
         </div>
       </div>
@@ -168,7 +170,19 @@
           <div class="swiper-wrapper">
             <% catData.products.forEach((product) => { %>
             <div class="swiper-slide product-card text-center">
+
+              <span 
+              class="wishlist-icon position-absolute top-0 start-0 m-2" 
+              onclick="toggleWishlist('<%= product.id %>', event)" 
+              title="Add to Wishlist">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -4 24 24" width="28" fill="currentColor">
+                <path d="M3.636 7.208L10 13.572l6.364-6.364a3 3 0 1 0-4.243-4.243L10 5.086l-2.121-2.12a3 3 0 0 0-4.243 4.242zM9.293 1.55l.707.707.707-.707a5 5 0 1 1 7.071 7.071l-7.07 7.071a1 1 0 0 1-1.415 0l-7.071-7.07a5 5 0 1 1 7.07-7.071z"></path>
+              </svg>
+            </span>
+
+            <a href="/productdetails/<%= product._id %>" class="d-block">
               <img src="<%= product.coverimage %>" alt="<%= product.name %>" class="product-image">
+            </a>
               <h6 class="mt-2 font-weight-bold"><%= product.name %></h6>
               <div class="price-container">
                 <p class="text-muted offer-price">₹<%= product.price %></p>
@@ -180,18 +194,13 @@
               <% } else { %>
                 <button class="add-to-cart-btn gruppo-regular" style="font-size: 17px;" onclick="addToCart('<%= product.id %>', event)">Add to Cart</button>
               <% } %>
-              <span 
-              class="wishlist-icon" 
-              onclick="toggleWishlist('<%= product.id %>', event)" 
-              title="Add to Wishlist">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -4 24 24" width="28" fill="currentColor"><path d="M3.636 7.208L10 13.572l6.364-6.364a3 3 0 1 0-4.243-4.243L10 5.086l-2.121-2.12a3 3 0 0 0-4.243 4.242zM9.293 1.55l.707.707.707-.707a5 5 0 1 1 7.071 7.071l-7.07 7.071a1 1 0 0 1-1.415 0l-7.071-7.07a5 5 0 1 1 7.07-7.071z"></path></svg>
-            </span>
+             
             </div>
             <% }) %>
           </div>       
           <!-- Navigation Buttons -->
-          <div class="swiper-button-next" style="color: #939393;"></div>
-          <div class="swiper-button-prev"  style="color: #939393;"></div>
+          <div class="swiper-button-next " style="color: #939393;"></div>
+          <div class="swiper-button-prev d-none d-md-block"  style="color: #939393;"></div>
         </div>
       </div>
       <% }) %>
@@ -202,136 +211,6 @@
 
 
   
-
-<main class="main">
-
-        <section class="product-tabs section-padding position-relative wow fadeIn animated">
-            <div class="bg-square"></div>
-            <div class="container">
-                <div class="tab-header">
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                             <li class="nav-item" role="presentation"></li>
-                             
-                             <button class="nav-link active bg-dark text-white" id="nav-tab-one">
-                                <a href="#" class="text-white">LATEST <span style="color: #f90000;">PRODUCTS</span></a>
-                            </button>
-                            </li>
-                    </ul>
-                </div>
-                <!--End nav-tabs-->
-                <div class="tab-content wow fadeIn animated" id="myTabContent">
-                    <div class="tab-pane fade show active" id="tab-one" role="tabpanel" aria-labelledby="tab-one">
-                        <div class="row product-grid-4" >
-                            <% products.forEach(product => { %>
-                            <div class="col-lg-3 col-md-4 col-12 col-sm-6">
-                                <div class="product-cart-wrap mb-30 border border-dark" style="position: relative;">
-                                    <!-- Limited Quantity Badge -->
-                                    <% if (product.quantity > 0 && product.quantity <= 5) { %>
-                                    <div style="position: absolute; top: 10px; right: 10px; background-color: #ff4747; color: white; font-size: 12px; font-weight: bold; padding: 5px 10px; border-radius: 8px; z-index: 10; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-                                        Limited Stock!
-                                    </div>
-                                    <% } %>
-                                    <div class="product-img-action-wrap" style="position: relative;">
-                                        <% if (product.offerPercentage) { %>
-                                        <!-- Discount Badge -->
-                                        <div style="
-                                            position: absolute; 
-                                            top: 10px; 
-                                            left: 10px; 
-                                            background-color: #ff4c4c; 
-                                            color: white; 
-                                            font-size: 12px; 
-                                            font-weight: bold; 
-                                            padding: 5px 10px; 
-                                            border-radius: 8px; 
-                                            z-index: 10; 
-                                            text-transform: uppercase; 
-                                            letter-spacing: 1px;
-                                            box-shadow: 0 2px 10px rgba(255, 76, 76, 0.5); 
-                                            animation: pulse 2s infinite;">
-                                            <%= product.offerPercentage %>% OFF
-                                        </div>
-                                        <% } %>
-                                        <div class="product-img product-img-zoom">
-                                            <a href="/productdetails/<%= product._id %>">
-                                                <% if (product.quantity > 0) { %>
-                                                <img 
-                                                    class="default-img" 
-                                                    src="<%= product.coverimage %>" 
-                                                    alt="" 
-                                                    style="width: 100%; height: 309px; object-fit: cover; aspect-ratio: 3/4;"
-                                                >
-                                                <% } else { %>
-                                                <div style="position: relative; display: flex; justify-content: center; align-items: center; aspect-ratio: 3/4;">
-                                                    <div style="z-index: 50000; width: 100%; position: absolute; color: rgb(255, 255, 255); padding-top: 15px; height: 50px; background-color: rgba(39, 29, 29, 0.344); font-size: 17px; font-weight: 600; text-align: center;">
-                                                        Out Of Stock
-                                                    </div>
-                                                    <img 
-                                                        class="default-img" 
-                                                        src="<%= product.coverimage %>" 
-                                                        alt="" 
-                                                        style="width: 100%; height: auto; object-fit: cover; filter: grayscale(100%); aspect-ratio: 3/4;"
-                                                    >
-                                                </div>
-                                                <% } %>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="product-content-wrap bg-light">
-                                        <div class="product-category">
-                                            <a href=""><%= product.category %></a>
-                                        </div>
-                                        <h2><a href="/productdetails/<%= product._id %>" class="text-dark"><%= product.name %></a></h2>
-                        
-                                        <div class="product-price">
-                                            <span class="text-dark">₹ <%= product.price %></span>
-                                            <span class="old-price">₹ <%= product.offerPrice %></span>
-                                        </div>
-                                        <div class="product-action-1 show">
-                                            <% if (product.quantity > 0) { %>
-                                            <a aria-label="Add To Cart" class="action-btn hover-up" onclick="addToCart('<%= product.id %>', event)" href="">
-                                                <i class="fi-rs-shopping-bag-add"></i>
-                                            </a>
-                                            <% } %>
-                                        </div>
-                                        <p style="margin-top: 3px; color: green; font-size: 15px;">Free Delivery</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <% }) %>
-                            <button class="nav-link active bg-dark text-white" id="nav-tab-one" type="button"><a href="/homeProduct" class="text-white">SEE MORE PRODUCTS</a></button>
-                        </div>
-                        
-                        <!-- Embedded animation -->
-                        <style>
-                        @keyframes pulse {
-                            0% {
-                                transform: scale(1);
-                                box-shadow: 0 2px 10px rgba(255, 76, 76, 0.5);
-                            }
-                            50% {
-                                transform: scale(1.05);
-                                box-shadow: 0 4px 15px rgba(255, 76, 76, 0.8);
-                            }
-                            100% {
-                                transform: scale(1);
-                                box-shadow: 0 2px 10px rgba(255, 76, 76, 0.5);
-                            }
-                        }
-                        </style>
-                        
-                        
-
-                        <!--End product-grid-4-->
-                    </div>
-                    <!--En tab one (Featured)-->
-
-                </div>
-                <!--End tab-content-->
-            </div>
-        </section>      
-    </main>
     <footer class="main" style="background-color: #000000;">
         <section class="section-padding footer-mid">
             <div class="container pt-15 pb-20">

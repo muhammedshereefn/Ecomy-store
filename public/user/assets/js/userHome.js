@@ -79,6 +79,10 @@
     spaceBetween: 15, // Space between cards
     grabCursor: true, // Enable touch to scroll
     loop: true, // Infinite loop
+    autoplay: {
+      delay: 2000, // Delay between auto slides in milliseconds
+      disableOnInteraction: false, // Keep autoplay enabled even after user interaction
+    },
     pagination: {
       el: '.swiper-pagination',
       clickable: true, // Enable pagination dots

@@ -51,11 +51,22 @@ const loaddLogin = async (req, res) => {
   try {
     const products = await Product.find({ status: true }).sort({ price: 1 });
     const cata = await category.find();
+
+    // Prepare category-wise products
+    const categoryProducts = await Promise.all(
+      cata.map(async (cat) => {
+        const products = await Product.find({ category: cat.name, status: true });
+        return { category: cat.name, products };
+      })
+    );
+
+
     res.render("home", {
       message: "",
       userId: req.session.user_id ? req.session.user_id : "",
       products,
       cata,
+      categoryProducts,
       userName: " PLease login",
     });
   } catch (error) {
@@ -101,7 +112,7 @@ const loadHome = async (req, res) => {
       user = await User.findOne({ _id: userId });
     }
 
-    const products = await Product.find({ status: true }).sort({ price: 1 }).limit(28);
+    const products = await Product.find({ status: true }).sort({ price: 1 })
     const cata = await category.find();
 
         // Prepare category-wise products

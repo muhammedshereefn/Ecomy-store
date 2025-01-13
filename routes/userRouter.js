@@ -28,7 +28,6 @@ userRouter.get("/register", auth.isLogout, userController.loadRegister);
 userRouter.post("/register", userController.insertUser);
 
 
-
 userRouter.get("/terms&conditions", userController.loadTermsandConditions);
 userRouter.get("/privacy&policy", userController.loadPrivacyandPolicies);
 userRouter.get("/contact-us", userController.loadContactUs);
