@@ -1,6 +1,5 @@
 <%- include('userSubHeader') %>
-<div class="container mt-4 mb-4">
-  <h3 style="font-size: 25px; font-weight: bold; color: #333; text-transform: uppercase; letter-spacing: 2px;" class="pb-4"><span style="color: #e44d26;">O</span>RDERS</h3>
+<div class="container ">
 
   <!-- Spinner -->
 <div id="loadingSpinner" class="spinner-overlay" style="display: none;">
@@ -43,9 +42,9 @@
   <% orders.forEach(order => { %>
       <div class="card mt-4">
        
-          <div class="card-body bg-white">
+          <div class="card-body bg-light">
               <div class="mb-4">
-                  <h5 style="padding-bottom: 15px;">Order Status: <span class="text-success"><%= order.status %></span></h5>
+                  <h5 class="gruppo-regular" style="padding-bottom: 15px; font-size: 20px; font-weight: bolder;">ORDER STATUS : <span class="text-success"><%= order.status %></span></h5>
                   <h6>PRODUCT DETAILS</h6>
                   <ul class="list-group">
                       <% order.products.forEach(product => { %>
@@ -55,7 +54,7 @@
                                     <img src="<%= product.product.coverimage %>" alt="<%= product.product.name %>" class="mr-3" style="width: 50px; height: 50px; object-fit: cover;">
                                 </a>
                                   <div>
-                                      <%= product.product.name %> - Quantity: <%= product.quantity %>
+                                      Quantity: <%= product.quantity %>
                                       <% if (product.status ) { %>
                                         <span class="badge bg-secondary"><%= product.status %></span>
                                     <% } %>
@@ -67,9 +66,9 @@
                               <!-- Conditional Buttons -->
                               <% if (order.products.length !== 1 && order.status !== "Shipped") { %>
                               <% if (!product.status || product.status !== "Cancelled") { %>
-                                <button type="button" class="btn btn-danger btn-sm bg-dark" onclick="cancelItem('<%= order._id %>', '<%= product._id %>')">Cancel This Product</button>
+                                <button type="button" class="btn gruppo-regular btn-sm bg-light text-dark" style="font-size: 15px; font-weight: bolder;" onclick="cancelItem('<%= order._id %>', '<%= product._id %>')">Cancel</button>
                             <% } else { %>
-                                <button type="button" class="btn btn-primary btn-sm bg-dark" onclick="openRefundModal()">Refund</button>
+                                <button type="button" class="btn gruppo-regular btn-sm bg-light text-black " style="font-size: 15px; font-weight: bolder;" onclick="openRefundModal()">Refund </button>
                             <% } %>
                             <% } %>
                           </li>
@@ -77,28 +76,38 @@
                   </ul>
                   <p style="font-size: 13px; padding-bottom: 15px;" class="mt-2">Order Date: <%= order.createdAt.toDateString() %></p>
                   <% if (order.status !== "Delivered" && order.status !== "Cancelled") { %>
-                    <p style="font-size: 13px; padding-bottom: 15px; color: red;" class="mt-2">Delivered within 4-5 business days</p>
+                    <!-- <p style="font-size: 13px; padding-bottom: 15px; color: red;" class="mt-2">Delivered within 4-5 business days</p> -->
                   <% } %>
                   
                   <!-- Button to view order details -->
-                  <a href="/userOrderDetail?id=<%- order._id%>" class="btn rounded font-sm bg-dark" style="font-size: 12px;">VIEW ORDER DETAILS</a>
-                  
+                  <a href="/userOrderDetail?id=<%- order._id%>"  class="btn rounded gruppo-regular bg-dark cancel-order-btn" style="font-size: 14px; font-weight: bolder;">VIEW ORDER DETAILS</a>
+                  <style>
+                    /* Media query for mobile screens */
+                  @media (max-width: 576px) {
+                      .cancel-order-btn {
+                          margin-bottom: 3px; /* Increased margin for mobile screens */
+                      }
+                  }
+                  </style>
+
                <!-- Cancel, Refund, and Return Buttons -->
-                    <% if (order.status === "Cancelled" && order.products.length === 1) { %>
+                    <% if (order.status === "Cancelled"  && order.products.length === 1) { %>
                       <!-- Show Refund button if status is Cancelled -->
-                      <button type="button" class="btn btn-primary bg-dark" onclick="openRefundModal()">Refund Your Cash</button>
+                      <button type="button" class="btn btn-primary bg-dark gruppo-regular" style="font-size: 14px; font-weight: bolder;" onclick="openRefundModal()">Refund Your Cash <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -2 24 24" width="14" fill="currentColor"><path d="M5.308 7.612l1.352-.923a.981.981 0 0 1 1.372.27 1.008 1.008 0 0 1-.266 1.388l-3.277 2.237a.981.981 0 0 1-1.372-.27L.907 6.998a1.007 1.007 0 0 1 .266-1.389.981.981 0 0 1 1.372.27l.839 1.259C4.6 3.01 8.38 0 12.855 0c5.458 0 9.882 4.477 9.882 10s-4.424 10-9.882 10a.994.994 0 0 1-.988-1c0-.552.443-1 .988-1 4.366 0 7.906-3.582 7.906-8s-3.54-8-7.906-8C9.311 2 6.312 4.36 5.308 7.612z"></path></svg></button>
                     <% } else if (order.status === "Delivered") { %>
                       <!-- Show Return button if status is Delivered -->
-                      <button type="button" class="btn btn-warning bg-dark" onclick="openRefundModal()">Return Order</button>
+                      <button type="button" class="btn  bg-white text-dark gruppo-regular" style="font-size: 14px; font-weight: bolder;" onclick="openRefundModal()">Return Order</button>
                     <% } else if (order.products.length === 1 && order.status !== "Refunded" && order.status !== "Delivered" && order.status !== "Shipped" ) { %>
                       <!-- Show Cancel button if status is not Cancelled, Refunded, Delivered, Shipped, or Confirmed -->
-                      <button type="button" class="btn btn-danger bg-dark" onclick="cancelOrder('<%= order._id %>')">Cancel Order</button>
+                      <button type="button"  class="btn btn-danger bg-dark gruppo-regular" style="font-size: 14px; font-weight: bolder;" onclick="cancelOrder('<%= order._id %>')">Cancel Order</button>
                     <% } %>
               </div>
           </div>
       </div>
   <% }); %>
 </div>
+
+
 
 <!-- Refund Modal -->
 <div class="modal fade" id="refundModal" tabindex="-1" aria-labelledby="refundModalLabel" aria-hidden="true">
