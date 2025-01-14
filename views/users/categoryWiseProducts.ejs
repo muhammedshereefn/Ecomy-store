@@ -1,0 +1,91 @@
+<%- include('userHeader') %>
+<!-- views/categoryWiseProducts.ejs -->
+<section style="background-color: #f8f8f8; height: auto;">
+    <div class="container my-5">
+      <h2 class="gruppo-regular font-weight-bold mb-4" style="color: rgb(0, 98, 87);">
+       All Products in <%= categoryName %> Category
+      </h2>
+  
+      <div class="row">
+        <% products.forEach((product) => { %>
+          <div class="col-lg-2 col-md-4 col-6" style="margin-bottom: 85px;"> <!-- 4 items on large screens, 3 on medium, 2 on small -->
+            <div class="product-card text-center">
+  
+              <a href="/productdetails/<%= product._id %>" class="d-block">
+                <img src="<%= product.coverimage %>" alt="<%= product.name %>" class="product-image img-fluid">
+              </a>
+              <h6 class="mt-2 font-weight-bold"><%= product.name %></h6>
+              <div class="price-container">
+                <p class="text-muted offer-price">₹<%= product.price %></p>
+                <span class="old-price">₹<%= product.offerPrice %></span>
+              </div>
+              <p class="remark text-success"><%= product.remark %></p>
+              <% if (product.quantity === 0) { %>
+                <button class="add-to-cart-btn disabled-btn gruppo-regular old-price" style="font-size: 17px;" disabled>Stock Out</button>
+              <% } else { %>
+                <button class="add-to-cart-btn gruppo-regular" style="font-size: 17px;" onclick="addToCart('<%= product.id %>', event)">Add to Cart</button>
+              <% } %>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+    
+  </section>
+
+
+
+  <script>
+
+ //Add to cart sweet alert:
+ function addToCart(id, event) {
+    event.preventDefault();
+
+    $.ajax({
+      url: `/addToCart?id=${id}`,
+      method: "get",
+      success: (response) => {
+        if (response.status) {
+          Swal.fire({
+            title: 'ADD TO CART',
+            text: 'Product Added to cart',
+            icon: 'success',
+            timer: 1000,
+            showConfirmButton: false,
+          });
+        } else if (response.alreadyInCart) {
+          Swal.fire({
+            title: 'Product Already in Cart',
+            text: 'This product is already in your cart.',
+            icon: 'info',
+            confirmButtonText: 'View Cart',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.href = '/cart';
+            }
+          });
+        } else {
+          Swal.fire({
+            title: 'Login Required',
+            text: 'Please log in to add products to your cart.',
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonText: 'Login',
+            cancelButtonText: 'Cancel',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.href = '/login';
+            } else {
+              console.log('User canceled login');
+            }
+          });
+        }
+      },
+      error: (error) => {
+        console.error('Error:', error);
+        alert('An error occurred. Please try again');
+      }
+    });
+  }
+
+  </script>

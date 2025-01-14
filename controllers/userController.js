@@ -49,23 +49,24 @@ const insertUser = async (req, res) => {
 
 const loaddLogin = async (req, res) => {
   try {
-    const products = await Product.find({ status: true }).sort({ price: 1 });
+
     const cata = await category.find();
 
     // Prepare category-wise products
     const categoryProducts = await Promise.all(
       cata.map(async (cat) => {
-        const products = await Product.find({ category: cat.name, status: true });
+        const products = await Product.find({ category: cat.name, status: true }).limit(20)
         return { category: cat.name, products };
       })
     );
 
+    const bestSellerProducts = await Product.find({ status: true, bestseller: true }).sort({ price: 1 });
 
     res.render("home", {
       message: "",
       userId: req.session.user_id ? req.session.user_id : "",
-      products,
       cata,
+      bestSellerProducts,
       categoryProducts,
       userName: " PLease login",
     });
@@ -112,7 +113,39 @@ const loadHome = async (req, res) => {
       user = await User.findOne({ _id: userId });
     }
 
-    const products = await Product.find({ status: true }).sort({ price: 1 })
+    // const products = await Product.find({ status: true }).sort({ price: 1 })
+    const cata = await category.find();
+    const bestSellerProducts = await Product.find({ status: true, bestseller: true }).sort({ price: 1 });
+
+        // Prepare category-wise products
+        const categoryProducts = await Promise.all(
+          cata.map(async (cat) => {
+            const products = await Product.find({ category: cat.name, status: true })
+            .limit(20);
+            return { category: cat.name, products };
+          })
+        );
+    
+
+    res.render("home", {
+      userId: req.session.user_id ? req.session.user_id : "",
+      // products,
+      cata,
+      categoryProducts,
+      userName: user.name,
+      bestSellerProducts
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const categoryWiseProducts = async (req, res) => {
+  try {
+    const categoryName = req.params.categoryName;
+
+    // Find all products matching the category
+    const products = await Product.find({ category: categoryName, status: true }).sort({ price: 1 });
     const cata = await category.find();
 
         // Prepare category-wise products
@@ -123,18 +156,24 @@ const loadHome = async (req, res) => {
           })
         );
     
+    // Fetch categories to display in the view
+    const categories = await category.find();
+    
 
-    res.render("home", {
+    // Render the view with the category products
+    res.render("categoryWiseProducts", {
       userId: req.session.user_id ? req.session.user_id : "",
+      categoryName,
       products,
-      cata,
-      categoryProducts,
-      userName: user.name,
+      categories,
+      categoryProducts
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    res.status(500).send("Internal Server Error");
   }
 };
+
 
 
 const userLogout = async (req, res) => {
@@ -150,6 +189,14 @@ const loadProductDetails = async (req, res) => {
   try {
     const productId = req.params.id;
     const productdetails = await Product.findById(productId);
+
+    const productCategory = productdetails.category;
+   
+    const sameCategoryProducts = await Product.find({
+      _id: { $ne: productId }, // Exclude the current product
+      category: productCategory, // Filter by the same category
+    }).limit(6); // Fetch up to 6 products from the same category
+
    
    const baseName = productdetails.name.replace(/(\s*\(.*\))$/, '').trim(); // Remove color part (e.g., " (Red)")
 
@@ -161,7 +208,8 @@ const loadProductDetails = async (req, res) => {
     res.render("productDetails", {
       userId: req.session.user_id ? req.session.user_id : "",
       productdetails,
-      similarProducts
+      similarProducts,
+      sameCategory: sameCategoryProducts
     });
   } catch (error) {
     console.log(error);
@@ -1283,5 +1331,6 @@ module.exports = {
   loadContactUs,
   loadRefundPolicy,
   createProductOrder,
-  deleteOrder
+  deleteOrder,
+  categoryWiseProducts
 };

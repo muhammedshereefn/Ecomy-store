@@ -41,6 +41,8 @@ userRouter.get("/login", auth.isLogout, userController.loadLogin);
 userRouter.post("/login", auth.isLogout, userController.verfiyUser);
 
 userRouter.get("/home", auth.isLogin, userController.loadHome);
+userRouter.get("/categoryWiseProducts/:categoryName", auth.isLogin, userController.categoryWiseProducts);
+
 
 userRouter.get("/productdetails/:id", userController.loadProductDetails);
 

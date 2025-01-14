@@ -13,6 +13,22 @@
   font-weight: 400;
   font-style: normal;
 }
+
+.roboto-condensed-normal {
+  font-family: "Roboto Condensed", serif;
+  font-optical-sizing: auto;
+  font-weight: 400; /* Normal weight */
+  font-style: normal;
+}
+
+.roboto-condensed-bold {
+  font-family: "Roboto Condensed", serif;
+  font-optical-sizing: auto;
+  font-weight: 700; /* Bold weight */
+  font-style: normal;
+}
+
+
   /* General styles for the navbar header */
   .navbar-header {
     background-color: #ffffff; /* Dark blue background */

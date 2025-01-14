@@ -1,11 +1,4 @@
 ﻿<%- include('userSubHeader') %>
-
-
-       <div class="popup" style="min-width: 300px; height: 70px; background-color: rgba(128, 128, 128, 0.459);
-        position: fixed; z-index: 1000; right: 0; display: none; justify-content: center; align-items: center; color: white; border-radius: 10px; margin: 10px;">
-                <span style=" font-size: 20px;">Product Added To Cart</span>
-       </div> 
-
         <section class="mt-50 mb-50">
             <div class="container">
                 <div class="row">
@@ -13,63 +6,48 @@
                         <div class="product-detail accordion-detail">
                             <div class="row mb-50">
                                 <div class="col-md-6 col-sm-12 col-xs-12">
-                                    <div class="detail-gallery">
-                                        <span class="zoom-icon"><i class="fi-rs-search"></i></span>
+                                    <div class="detail-gallery"> 
                                         <!-- MAIN SLIDES -->
                                         <div class="product-image-slider">
-
                                             <% productdetails.images.forEach((items)=>{%>
                                             
                                                 <figure class="border-radius-10">
                                                     <img src="<%= items %>" alt="product image">
                                                 </figure>
-                                            
-                                           <% }) %>
-
-
-                                           
+                                           <% }) %> 
                                         </div>
                                         <!-- THUMBNAILS -->
                                         <div class="slider-nav-thumbnails pl-15 pr-15">
-
                                             <% productdetails.images.forEach((images)=>{ %>
                                                 <div><img src="<%= images %>" alt="product image"></div>
-
                                             <% }) %>
-                                            <!-- <div><img src="/user/assets/imgs/shop/thumbnail-3.jpg" alt="product image"></div> -->
-                                           
                                         </div>
                                     </div>
                                     <!-- End Gallery -->
-                                    <div class="social-icons single-share">
+                                    <div class="social-icons single-share d-none d-sm-block">
                                         <ul class="text-grey-5 d-inline-block">
-                                            <li><strong class="mr-10">Share this:</strong></li>
+                                            <li class="gruppo-regular" style="font-size: 16px;"><strong class="mr-10">Follow us:</strong></li>
                                             <li class="social-facebook"><a href="#"><img src="/user/assets/imgs/theme/icons/icon-facebook.svg" alt=""></a></li>
                                             <li class="social-instagram"><a href="https://www.instagram.com/6xobags/"><img src="/user/assets/imgs/theme/icons/icon-instagram.svg" alt=""></a></li>
                                         </ul>
                                     </div>
                                 </div>
 
-
-
-
-                                <div class="col-md-6 col-sm-12 col-xs-12">
+                                <div class="col-md-6 col-sm-12 col-xs-12 gruppo-regular" style="font-size: 18px;">
                                     <div class="detail-info">
-                                        <h2 class="title-detail"> <%= productdetails.name  %> </h2>
+                                        <h2 class="title-detail gruppo-regular" style="font-size: 45px;"> <%= productdetails.name  %> </h2>
                                         <div class="product-detail-rating">
                                             <div class="pro-details-brand">
                                                 <span> Brands: <a href="shop-grid-right.html"> <%= productdetails.brand  %></a></span>
                                                 <br>
                                                 <span><a href="shop-grid-right.html" style="color: red; font-weight: 800; font-size: larger;"> <%= productdetails.offerPercentage  %></a> % OFF</span>
                                             </div>
-                                            
                                         </div>
                                         <div class="clearfix product-price-cover">
                                             <div class="product-price primary-color float-left">
                                                 <ins><span class="text-dark">₹<%= productdetails.price  %></span></ins>
                                                 <ins><span class="old-price font-md ml-15">₹ <%= productdetails.offerPrice  %></span></ins>
                                                 <p style="margin-top: 3px; color: green; font-size: 15px;">Free Delivery</span>
-
                                             </div>
                                         </div>
                                         <div class="bt-1 border-color-1 mt-15 mb-15"></div>
@@ -132,16 +110,37 @@
                                             <% } %>
                                         </div>
                                         <ul class="product-meta font-xs color-grey mt-50">
-                                            <li>Availability:<span class="in-stock text-success ml-5"><%= productdetails.quantity  %></span></li>
+                                            <li>STOCK LEFT:<span class="in-stock text-success ml-5"><%= productdetails.quantity  %></span></li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>    
+                <h2 class="gruppo-regular font-weight-bold underline-hover m-0" style="font-weight: bold; font-size: 24px; color: rgb(81, 11, 147);">Similar Products</h2>
+                
+                <div class="container mt-5">
+                   
+                    <div class="row">
+                        <% sameCategory.forEach((product) => { %>
+                        <!-- Product Card -->
+                        <div class="col-lg-2 col-md-4 col-4 mb-4">
+                            <div class="card h-100">
+                                <a href="/productdetails/<%= product._id %>" >
+                                <!-- Product Image -->
+                                <img src="<%= product.coverimage %>" class="card-img-top" alt="<%= product.name %>" style="object-fit: cover; height: 150px;">
+                            </a>
+                            </div>
+                        </div>
+                        <% }) %>
+                    </div>
                 </div>
+                
             </div>
         </section>
+        
+        
     </main>
     <footer class="main" style="background-color: #000000;">
         <section class="section-padding footer-mid">
