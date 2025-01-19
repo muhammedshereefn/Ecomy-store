@@ -192,6 +192,37 @@
         document.getElementById('price').innerText = "₹<%= finalTotal %>"; // Ensure the price is always correct
       </script>
 
+<script>
+    document.getElementById('placeOrderButton').addEventListener('click', function () {
+        // Get selected address ID
+        const selectedAddress = document.querySelector('input[name="selectedAddressId"]:checked');
+        
+        if (!selectedAddress) {
+            // Show SweetAlert if no address is selected
+            Swal.fire({
+                icon: 'warning',
+                title: 'Missing Address',
+                text: 'Please add and select an address before proceeding.',
+                confirmButtonText: 'OK'
+            });
+        } else {
+            // Proceed with the payment
+            document.getElementById('selectedAddressId').value = selectedAddress.value;
+            Swal.fire({
+                icon: 'success',
+                title: 'Address Selected',
+                text: 'Proceeding to payment...',
+                showConfirmButton: false,
+                timer: 1500
+            }).then(() => {
+                // Submit the form or call your payment API here
+                console.log('Proceed to payment');
+            });
+        }
+    });
+</script>
+
+
    
  
       <!-- Vendor JS-->

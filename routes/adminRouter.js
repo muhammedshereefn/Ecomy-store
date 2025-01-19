@@ -72,7 +72,11 @@ adminRouter.post("/editingcat", auth.isLogin, adminController.posteditCat);
 adminRouter.get("/productlist", auth.isLogin, adminController.loadProduct);
 adminRouter.get("/addproduct", auth.isLogin, adminController.loadAddProduct);
 adminRouter.post(
-  "/addproduct",
+  "/addproduct",(req,res,next)=> {
+    console.log(JSON.stringify(req.body));
+    console.log(JSON.stringify(req.files));
+    next()
+  },
   upload.fields([{ name: "coverimage", maxCount: 1 }, { name: "images" }]),
   adminController.productadding
 );

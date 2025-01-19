@@ -195,7 +195,7 @@ const loadProductDetails = async (req, res) => {
     const sameCategoryProducts = await Product.find({
       _id: { $ne: productId }, // Exclude the current product
       category: productCategory, // Filter by the same category
-    }).limit(6); // Fetch up to 6 products from the same category
+    }).limit(4); // Fetch up to 6 products from the same category
 
    
    const baseName = productdetails.name.replace(/(\s*\(.*\))$/, '').trim(); // Remove color part (e.g., " (Red)")
@@ -1101,58 +1101,7 @@ const cancelOrder = async (req, res) => {
 
 
 
-const loadhomeProduct = async (req, res) => {
-  try {
-    let user = { name: "For better experience please login" };
-    if (req.session) {
-      const userId = req.session.user_id;
-      user = await User.findOne({ _id: userId });
-    }
 
-    const productsPerPage = 20; // Number of products per page
-    const currentPage = req.query.page || 1;
-
-    // Retrieve category filter from the request query
-    const categoryFilter = req.query.category || "All Categories";
-
-    // Find all categories
-    const cata = await category.find();
-
-    // Adjust the category query based on the filter
-    const categoryQuery =
-      categoryFilter !== "All Categories" ? { category: categoryFilter } : {};
-
-    // Count total products based on category filter
-    const totalProducts = await Product.countDocuments({
-      status: true,
-      ...categoryQuery,
-    });
-
-    // Calculate total pages based on total products and products per page
-    const totalPages = Math.ceil(totalProducts / productsPerPage);
-
-    // Calculate the skip value for pagination
-    const skip = (currentPage - 1) * productsPerPage;
-
-    // Retrieve products based on category filter, skipping, and limiting
-    const products = await Product.find({ status: true, ...categoryQuery })
-      .sort({ offerPercentage: -1 })
-      .skip(skip)
-      .limit(productsPerPage);
-
-    res.render("shop", {
-      userId: req.session.user_id ? req.session.user_id : "",
-      products,
-      cata,
-      userName: user ? user.name : "",
-      currentPage,
-      totalPages,
-      categoryFilter,
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
 
 const cancelItem = async (req, res) => {
   try {
@@ -1321,7 +1270,6 @@ module.exports = {
   placeOrderRaz,
   loadOrdersPage,
   cancelOrder,
-  loadhomeProduct,
   cancelItem,
   loadUserOrderDetailsPage,
   searchProduct,

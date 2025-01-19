@@ -597,6 +597,7 @@ const loadAddProduct = async (req, res) => {
 
 
 const productadding = async (req, res) => {
+console.log("backendil Ethiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
   try {
     const files = req.files;
 

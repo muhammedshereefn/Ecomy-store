@@ -181,9 +181,9 @@
               </div>
               <p class="remark text-success"><%= product.remark %></p>
               <% if (product.quantity === 0) { %>
-                <button class="add-to-cart-btn disabled-btn gruppo-regular old-price" style="font-size: 17px;" disabled>Stock Out</button>
+                <button class="add-to-cart-btn disabled-btn gruppo-regular  bg-light text-danger" style="font-size: 15px;" disabled>Stock Out</button>
               <% } else { %>
-                <button class="add-to-cart-btn gruppo-regular" style="font-size: 17px;" onclick="addToCart('<%= product.id %>', event)">Add to Cart</button>
+                <button class="add-to-cart-btn gruppo-regular bg-light text-dark" style="font-size: 15px;" onclick="addToCart('<%= product.id %>', event)">Add to Cart</button>
               <% } %>
              
             </div>

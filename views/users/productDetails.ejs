@@ -125,12 +125,17 @@
                     <div class="row">
                         <% sameCategory.forEach((product) => { %>
                         <!-- Product Card -->
-                        <div class="col-lg-2 col-md-4 col-4 mb-4">
+                        <div class="col-6 col-md-4 col-lg-2 mb-4">
                             <div class="card h-100">
-                                <a href="/productdetails/<%= product._id %>" >
-                                <!-- Product Image -->
-                                <img src="<%= product.coverimage %>" class="card-img-top" alt="<%= product.name %>" style="object-fit: cover; height: 150px;">
-                            </a>
+                                <a href="/productdetails/<%= product._id %>">
+                                    <!-- Product Image -->
+                                    <img src="<%= product.coverimage %>" class="card-img-top" alt="<%= product.name %>" style="object-fit: cover; height: 150px;">
+                                </a>
+                                <!-- Price Section -->
+                                <div class="card-body text-center">
+                                    <h6 class="card-title mb-2"><%= product.name %></h6>
+                                    <p class="text-dark gruppo-regular fw-bold" style="font-size: 21px;">₹ <%= product.price %></p>
+                                </div>
                             </div>
                         </div>
                         <% }) %>

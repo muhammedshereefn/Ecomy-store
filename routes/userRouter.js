@@ -133,7 +133,7 @@ userRouter.post('/deleteOrder',auth.isLogin, userController.deleteOrder)
 
 //-----------------------------SHOP PAGE AND SEARCH PRODUCTS----------------------------------
 
-userRouter.get("/homeProduct", userController.loadhomeProduct);
+
 userRouter.get("/searchProduct", userController.searchProduct);
 
 
